@@ -6,13 +6,16 @@ class Message extends Component {
 
     constructor(props) {
         super(props);
-        // this.state.read = props.read;
-        // this.state.selected = props.selected;
-        // this.state.starred = props.starred;
-        // this.state.message = props.message;
-        // this.state.labels = props.labels;
-        // this.state.subject = props.subject;
-        this.state = { read: false, selected: false, starred: false, labels: ["dev", "personal"], message: "Hi", subject: "This is the subject" };
+        this.state = {
+            id: props.id,
+            subject: props.subject,
+            read: props.read,
+            starred: props.starred,
+            selected: props.selected,
+            labels: props.labels,
+            message: props.message
+        };
+        // this.state = { read: false, selected: false, starred: false, labels: ["dev", "personal"], message: "Hi", subject: "This is the subject" };
     }
 
     messageRead = () => this.state.read ? "read " : "unread "
@@ -24,7 +27,7 @@ class Message extends Component {
             {this.state.message}
         </div>
     </div>
-
+    messageLabel = () => this.state.labels == undefined ? "" : this.state.labels.map((label) => <span class="label label-warning">{label}</span>)
 
     render() {
         return (
@@ -41,7 +44,7 @@ class Message extends Component {
                         </div>
                     </div>
                     <div className="col-xs-11">
-                        {this.state.labels.map((label) => <span class="label label-warning">{label}</span>)}
+                            {this.messageLabel()}
                         <a href="#">
                             {this.state.subject}
                         </a>
