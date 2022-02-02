@@ -3,15 +3,21 @@ import { Component } from "react/cjs/react.production.min";
 
 class Toolbar extends Component {
 
-    constructor(props){
+    constructor(props) {
 
-        this.state = {allMessagesSelected: true}
+        this.state = { messagesSelected: "all" }
     }
 
-    allMessagesSelected = () => {
-
+    messagesSelected = () => {
+        if(this.state.messagesSelected === "all"){
+            return "fa fa-check-square-o"
+        }else if(this.state.messagesSelected ==="some"){
+            return "fa fa-minus-square-o";
+        }else{
+            return "fa fa-square-o"
+        }       
     }
-
+    
     render() {
         return (
             <div className="row toolbar">
@@ -22,7 +28,7 @@ class Toolbar extends Component {
                     </p>
 
                     <button className="btn btn-default">
-                        <i className="fa fa-check-square-o"></i>
+                        <i className={this.messagesSelected()}></i>
                     </button>
 
                     <button className="btn btn-default">
@@ -59,4 +65,4 @@ class Toolbar extends Component {
 
 
 
-export default Toolbar
+export default Toolbar;
