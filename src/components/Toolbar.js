@@ -5,7 +5,7 @@ class Toolbar extends Component {
 
     constructor(props) {
         super(props)
-        this.state = { messagesSelected: "all" }
+        this.state = { messagesSelected: props.messagesSelected }
         //this.messagesSelectedToolbar(true);
     }
 
@@ -21,15 +21,10 @@ class Toolbar extends Component {
     messagesSelectedToolbar = () => {
         if (this.state.messagesSelected === "all") {
             this.props.setAllSelected(false)
-        } else if (this.state.messagesSelected === "some") {
-            this.props.setAllSelected(true)
         } else {
             this.props.setAllSelected(true)
         }
     }
-
-
-
 
     render() {
         return (

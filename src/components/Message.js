@@ -4,35 +4,25 @@ import { Component } from "react/cjs/react.production.min";
 
 class Message extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            id: props.id,
-            subject: props.subject,
-            read: props.read,
-            starred: props.starred || false,
-            selected: props.selected || false,
-            labels: props.labels,
-            message: props.message
-        };
-        // this.state = { read: false, selected: false, starred: false, labels: ["dev", "personal"], message: "Hi", subject: "This is the subject" };
-    }
-
-    messageRead = () => this.state.read ? "read " : "unread "
-    messageSelected = () => this.state.selected ? "selected" : "";
-    messageStarred = () => this.state.starred ? "" : "-o";
-    messageBody = () => this.state.message === undefined ? "" : <div class="row message-body">
+    messageRead = () => this.props.message.read ? "read " : "unread "
+    messageSelected = () => this.props.message.selected ? "selected" : "";
+    messageStarred = () => this.props.message.starred ? "" : "-o";
+    messageBody = () => this.props.message.message === undefined ? "" : <div class="row message-body">
         <div class="col-xs-11 col-xs-offset-1">
-            {this.state.message}
+            {this.props.message.message}
         </div>
     </div>
-    messageLabel = () => this.state.labels === undefined ? "" : this.state.labels.map((label) => <span class="label label-warning">{label}</span>)
-    toggleChecked = () => this.setState({
-        selected: !this.state.selected
-    })
-    toggleStarred = () => this.setState({
-        starred: !this.state.starred
-    })
+    messageLabel = () => this.props.message.labels === undefined ? "" : this.props.message.labels.map((label) => <span class="label label-warning">{label}</span>)
+    toggleChecked = () => {
+        let msg = this.props.message;
+        msg.selected = !this.props.message.selected;
+        this.props.msgChanged(msg);
+    }
+    toggleStarred = () => {
+        let msg = this.props.message;
+        msg.starred = !this.props.message.starred;
+        this.props.msgChanged(msg);
+    }
 
     render() {
         return (
@@ -41,7 +31,7 @@ class Message extends Component {
                     <div className="col-xs-1">
                         <div className="row">
                             <div className="col-xs-2">
-                                <input type="checkbox" checked={this.state.selected} onChange={this.toggleChecked} />
+                                <input type="checkbox" checked={this.props.message.selected} onChange={this.toggleChecked} />
                             </div>
                             <div className="col-xs-2">
                                 <i className={"star fa fa-star" + this.messageStarred()} onClick={this.toggleStarred}></i>
@@ -51,7 +41,7 @@ class Message extends Component {
                     <div className="col-xs-11">
                         {this.messageLabel()}
                         <a href="#">
-                            {this.state.subject}
+                            {this.props.message.subject}
                         </a>
                     </div>
                 </div>

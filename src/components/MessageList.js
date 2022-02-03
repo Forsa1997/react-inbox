@@ -64,6 +64,7 @@ class MessageList extends Component {
                 "subject": "If we connect the sensor, we can get to the HDD port through the redundant IB firewall!",
                 "read": true,
                 "starred": true,
+                "selected": true,
                 "labels": []
             }
         ]
@@ -75,22 +76,29 @@ class MessageList extends Component {
             messageList[i].selected = true;
         }
         this.setState({ messages: messageList })
-        console.log(this.state.messages)
+        //console.log(this.state.messages)
     }
+
+    msgChanged = (msg) => {
+        let messageList = this.state.messages
+        for (let i = 0; i < this.state.messages.length; i++) {
+            if (messageList[i].id === msg.id) {
+                messageList[i] = msg;
+            }
+        }
+        this.setState({ messages: messageList })
+    }
+
 
     render() {
         return (
             <div>
-                <Toolbar setAllSelected={this.setAllSelected} />
+                <Toolbar setAllSelected={this.setAllSelected} messagesSelected="some" />
                 <div>
                     {this.state.messages.map((message) => <Message
                         key={message.id}
-                        read={message.read}
-                        selected={message.selected}
-                        starred={message.starred}
-                        message={message.message}
-                        labels={message.labels}
-                        subject={message.subject}
+                        message={message}
+                        msgChanged={this.msgChanged}
                     />)}
                 </div>
             </div>
