@@ -105,11 +105,80 @@ class MessageList extends Component {
             return "all"
         }
     }
+    setMessagesRead = () => {
+        let messageList = this.state.messages
+        for (let i = 0; i < this.state.messages.length; i++) {
+            if(messageList[i].selected){
+                messageList[i].read = true;
+            }
+        }
+        this.setState({ messages: messageList })
+    }
+
+    setMessagesUnread = () => {
+        let messageList = this.state.messages
+        for (let i = 0; i < this.state.messages.length; i++) {
+            if(messageList[i].selected){
+                messageList[i].read = false;
+            }
+        }
+        this.setState({ messages: messageList })
+    }
+
+    setLabels = (e) => {
+        e.preventDefault();
+        let messageList = this.state.messages
+        messageList.forEach(message => {
+            if((message.selected && !message.labels.includes(e.target.value)) && e.target.value != "Apply label"){
+                message.labels.push(e.target.value);
+            }
+        })
+        this.setState({ messages: messageList })
+    }
+
+    removeLabels = (e) => {
+        e.preventDefault();
+        let messageList = this.state.messages
+        messageList.forEach(message => {
+            if((message.selected && message.labels.includes(e.target.value)) && e.target.value != "Remove label"){
+                message.labels.splice(message.labels.indexOf(e.target.value), 1);
+            }
+        })
+        this.setState({ messages: messageList })
+    }
+
+    removeMessage = () => {
+        let messageList = [];
+        this.state.messages.forEach(message => {
+            if(!message.selected){
+                messageList.push(message)
+            }
+        })
+        this.setState({ messages: messageList })
+    }
+    
+    unreadMessages = () => {
+        let count = 0;
+        this.state.messages.forEach(message => {
+            if(!message.read){
+                count++;
+            }
+        })
+        return count;
+    }
 
     render() {
         return (
             <div>
-                <Toolbar setAllSelected={this.setAllSelected} messagesSelected={this.countSelected()} />
+                <Toolbar 
+                setAllSelected={this.setAllSelected} 
+                messagesSelected={this.countSelected()} 
+                setMessagesRead={this.setMessagesRead} 
+                setMessagesUnread={this.setMessagesUnread}
+                setLabels={this.setLabels}
+                removeLabels={this.removeLabels}
+                removeMessage={this.removeMessage}
+                unreadMessages={this.unreadMessages()}/>
                 <div>
                     {this.state.messages.map((message) => <Message
                         key={message.id}

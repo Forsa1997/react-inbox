@@ -21,42 +21,45 @@ class Toolbar extends Component {
         }
     }
 
+    unreadMessageOutput = () => this.props.unreadMessages === 1 ? "unread message" : "unread messages";
+    
+
     render() {
         return (
             <div className="row toolbar">
                 <div className="col-md-12">
                     <p className="pull-right">
-                        <span className="badge badge">2</span>
-                        unread messages
+                        <span className="badge badge">{this.props.unreadMessages}</span>
+                        {this.unreadMessageOutput()}
                     </p>
 
                     <button className="btn btn-default" onClick={this.messagesSelectedToolbar}>
                         <i className={this.messagesSelected()}></i>
                     </button>
 
-                    <button className="btn btn-default">
+                    <button className="btn btn-default" onClick={this.props.setMessagesRead} disabled={this.props.messagesSelected === "none"}>
                         Mark As Read
                     </button>
 
-                    <button className="btn btn-default">
+                    <button className="btn btn-default" onClick={this.props.setMessagesUnread} disabled={this.props.messagesSelected === "none"}>
                         Mark As Unread
                     </button>
 
-                    <select className="form-control label-select">
+                    <select className="form-control label-select" onChange={this.props.setLabels} disabled={this.props.messagesSelected === "none"}>
                         <option>Apply label</option>
                         <option value="dev">dev</option>
                         <option value="personal">personal</option>
                         <option value="gschool">gschool</option>
                     </select>
 
-                    <select className="form-control label-select">
+                    <select className="form-control label-select" onChange={this.props.removeLabels} disabled={this.props.messagesSelected === "none"}>
                         <option>Remove label</option>
                         <option value="dev">dev</option>
                         <option value="personal">personal</option>
                         <option value="gschool">gschool</option>
                     </select>
 
-                    <button className="btn btn-default">
+                    <button className="btn btn-default" onClick={this.props.removeMessage} disabled={this.props.messagesSelected === "none"}>
                         <i className="fa fa-trash-o"></i>
                     </button>
                 </div>
