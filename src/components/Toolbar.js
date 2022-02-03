@@ -4,20 +4,20 @@ import { Component } from "react/cjs/react.production.min";
 class Toolbar extends Component {
 
     constructor(props) {
-
+        super(props)
         this.state = { messagesSelected: "all" }
     }
 
     messagesSelected = () => {
-        if(this.state.messagesSelected === "all"){
+        if (this.state.messagesSelected === "all") {
             return "fa fa-check-square-o"
-        }else if(this.state.messagesSelected ==="some"){
+        } else if (this.state.messagesSelected === "some") {
             return "fa fa-minus-square-o";
-        }else{
+        } else {
             return "fa fa-square-o"
-        }       
+        }
     }
-    
+
     render() {
         return (
             <div className="row toolbar">

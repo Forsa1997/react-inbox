@@ -22,12 +22,12 @@ class Message extends Component {
     messageSelected = () => this.state.selected ? "selected" : "";
     messageChecked = () => this.state.selected ? "checked" : "";
     messageStarred = () => this.state.starred ? "" : "-o";
-    messageBody = () => this.state.message == undefined ? "" : <div class="row message-body">
+    messageBody = () => this.state.message === undefined ? "" : <div class="row message-body">
         <div class="col-xs-11 col-xs-offset-1">
             {this.state.message}
         </div>
     </div>
-    messageLabel = () => this.state.labels == undefined ? "" : this.state.labels.map((label) => <span class="label label-warning">{label}</span>)
+    messageLabel = () => this.state.labels === undefined ? "" : this.state.labels.map((label) => <span class="label label-warning">{label}</span>)
 
     render() {
         return (
@@ -44,7 +44,7 @@ class Message extends Component {
                         </div>
                     </div>
                     <div className="col-xs-11">
-                            {this.messageLabel()}
+                        {this.messageLabel()}
                         <a href="#">
                             {this.state.subject}
                         </a>
