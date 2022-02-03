@@ -73,10 +73,9 @@ class MessageList extends Component {
     setAllSelected = (allSelected) => {
         let messageList = this.state.messages
         for (let i = 0; i < this.state.messages.length; i++) {
-            messageList[i].selected = true;
+            messageList[i].selected = allSelected;
         }
         this.setState({ messages: messageList })
-        //console.log(this.state.messages)
     }
 
     msgChanged = (msg) => {
