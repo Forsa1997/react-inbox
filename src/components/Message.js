@@ -10,8 +10,8 @@ class Message extends Component {
             id: props.id,
             subject: props.subject,
             read: props.read,
-            starred: props.starred,
-            selected: props.selected,
+            starred: props.starred || false,
+            selected: props.selected || false,
             labels: props.labels,
             message: props.message
         };
@@ -20,7 +20,6 @@ class Message extends Component {
 
     messageRead = () => this.state.read ? "read " : "unread "
     messageSelected = () => this.state.selected ? "selected" : "";
-    messageChecked = () => this.state.selected ? "checked" : "";
     messageStarred = () => this.state.starred ? "" : "-o";
     messageBody = () => this.state.message === undefined ? "" : <div class="row message-body">
         <div class="col-xs-11 col-xs-offset-1">
@@ -28,6 +27,12 @@ class Message extends Component {
         </div>
     </div>
     messageLabel = () => this.state.labels === undefined ? "" : this.state.labels.map((label) => <span class="label label-warning">{label}</span>)
+    toggleChecked = () => this.setState({
+        selected: !this.state.selected
+    })
+    toggleStarred = () => this.setState({
+        starred: !this.state.starred
+    })
 
     render() {
         return (
@@ -36,10 +41,10 @@ class Message extends Component {
                     <div className="col-xs-1">
                         <div className="row">
                             <div className="col-xs-2">
-                                <input type="checkbox" checked={this.messageChecked()} />
+                                <input type="checkbox" checked={this.state.selected} onChange={this.toggleChecked} />
                             </div>
                             <div className="col-xs-2">
-                                <i className={"star fa fa-star" + this.messageStarred()}></i>
+                                <i className={"star fa fa-star" + this.messageStarred()} onClick={this.toggleStarred}></i>
                             </div>
                         </div>
                     </div>
