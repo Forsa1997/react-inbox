@@ -97,7 +97,6 @@ class MessageList extends Component {
                 }
             }
         )
-        console.log("counter: " + counter)
         if (counter === 0) {
             return "none"
         } else if (counter < this.state.messages.length) {

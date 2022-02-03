@@ -7,12 +7,12 @@ class Message extends Component {
     messageRead = () => this.props.message.read ? "read " : "unread "
     messageSelected = () => this.props.message.selected ? "selected" : "";
     messageStarred = () => this.props.message.starred ? "" : "-o";
-    messageBody = () => this.props.message.message === undefined ? "" : <div class="row message-body">
-        <div class="col-xs-11 col-xs-offset-1">
+    messageBody = () => this.props.message.message === undefined ? "" : <div className="row message-body">
+        <div className="col-xs-11 col-xs-offset-1">
             {this.props.message.message}
         </div>
     </div>
-    messageLabel = () => this.props.message.labels === undefined ? "" : this.props.message.labels.map((label) => <span class="label label-warning">{label}</span>)
+    messageLabel = () => this.props.message.labels === undefined ? "" : this.props.message.labels.map((label, index) => <span key={index} className="label label-warning">{label}</span>)
     toggleChecked = () => {
         let msg = this.props.message;
         msg.selected = !this.props.message.selected;
