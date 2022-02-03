@@ -1,6 +1,7 @@
 import React from "react";
 import { Component } from "react/cjs/react.production.min";
 import Message from "./Message";
+import Toolbar from './Toolbar';
 
 
 class MessageList extends Component {
@@ -68,18 +69,30 @@ class MessageList extends Component {
         ]
     }
 
+    setAllSelected = (allSelected) => {
+        let messageList = this.state.messages
+        for (let i = 0; i < this.state.messages.length; i++) {
+            messageList[i].selected = true;
+        }
+        this.setState({ messages: messageList })
+        console.log(this.state.messages)
+    }
+
     render() {
         return (
             <div>
-                {this.state.messages.map((message) => <Message
-                    key={message.id}
-                    read={message.read}
-                    selected={message.selected}
-                    starred={message.starred}
-                    message={message.message}
-                    labels={message.labels}
-                    subject={message.subject}
-                />)}
+                <Toolbar setAllSelected={this.setAllSelected} />
+                <div>
+                    {this.state.messages.map((message) => <Message
+                        key={message.id}
+                        read={message.read}
+                        selected={message.selected}
+                        starred={message.starred}
+                        message={message.message}
+                        labels={message.labels}
+                        subject={message.subject}
+                    />)}
+                </div>
             </div>
         )
     }

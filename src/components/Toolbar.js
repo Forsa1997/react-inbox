@@ -6,6 +6,7 @@ class Toolbar extends Component {
     constructor(props) {
         super(props)
         this.state = { messagesSelected: "all" }
+        //this.messagesSelectedToolbar(true);
     }
 
     messagesSelected = () => {
@@ -17,6 +18,18 @@ class Toolbar extends Component {
             return "fa fa-square-o"
         }
     }
+    messagesSelectedToolbar = () => {
+        if (this.state.messagesSelected === "all") {
+            this.props.setAllSelected(false)
+        } else if (this.state.messagesSelected === "some") {
+            this.props.setAllSelected(true)
+        } else {
+            this.props.setAllSelected(true)
+        }
+    }
+
+
+
 
     render() {
         return (
@@ -27,7 +40,7 @@ class Toolbar extends Component {
                         unread messages
                     </p>
 
-                    <button className="btn btn-default">
+                    <button className="btn btn-default" onClick={this.messagesSelectedToolbar}>
                         <i className={this.messagesSelected()}></i>
                     </button>
 
