@@ -89,11 +89,29 @@ class MessageList extends Component {
         this.setState({ messages: messageList })
     }
 
+    countSelected = () => {
+        var counter = 0;
+        this.state.messages.forEach(
+            message => {
+                if (message.selected === true) {
+                    counter++;
+                }
+            }
+        )
+        console.log("counter: " + counter)
+        if (counter === 0) {
+            return "none"
+        } else if (counter < this.state.messages.length) {
+            return "some"
+        } else {
+            return "all"
+        }
+    }
 
     render() {
         return (
             <div>
-                <Toolbar setAllSelected={this.setAllSelected} messagesSelected="some" />
+                <Toolbar setAllSelected={this.setAllSelected} messagesSelected={this.countSelected()} />
                 <div>
                     {this.state.messages.map((message) => <Message
                         key={message.id}
@@ -104,7 +122,6 @@ class MessageList extends Component {
             </div>
         )
     }
-
 }
 
 export default MessageList;

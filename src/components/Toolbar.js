@@ -3,23 +3,18 @@ import { Component } from "react/cjs/react.production.min";
 
 class Toolbar extends Component {
 
-    constructor(props) {
-        super(props)
-        this.state = { messagesSelected: props.messagesSelected }
-        //this.messagesSelectedToolbar(true);
-    }
 
     messagesSelected = () => {
-        if (this.state.messagesSelected === "all") {
+        if (this.props.messagesSelected === "all") {
             return "fa fa-check-square-o"
-        } else if (this.state.messagesSelected === "some") {
+        } else if (this.props.messagesSelected === "some") {
             return "fa fa-minus-square-o";
         } else {
             return "fa fa-square-o"
         }
     }
     messagesSelectedToolbar = () => {
-        if (this.state.messagesSelected === "all") {
+        if (this.props.messagesSelected === "all") {
             this.props.setAllSelected(false)
         } else {
             this.props.setAllSelected(true)
