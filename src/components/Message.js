@@ -15,13 +15,18 @@ class Message extends Component {
     messageLabel = () => this.props.message.labels === undefined ? "" : this.props.message.labels.map((label, index) => <span key={index} className="label label-warning">{label}</span>)
     toggleChecked = () => {
         let msg = this.props.message;
+        let newMsg = this.props.message;
         msg.selected = !this.props.message.selected;
-        this.props.msgChanged(msg);
+        this.props.msgChanged(msg, newMsg, "select");
     }
     toggleStarred = () => {
         let msg = this.props.message;
-        msg.starred = !this.props.message.starred;
-        this.props.msgChanged(msg);
+        let newMsg = this.props.message;
+        newMsg.starred = !this.props.message.starred;
+        this.props.msgChanged(msg,newMsg, "star");
+    }
+    toggleRead = () => {
+
     }
 
     render() {
@@ -31,7 +36,7 @@ class Message extends Component {
                     <div className="col-xs-1">
                         <div className="row">
                             <div className="col-xs-2">
-                                <input type="checkbox" checked={this.props.message.selected} onChange={this.toggleChecked} />
+                                <input type="checkbox" checked={this.props.message.selected || false} onChange={this.toggleChecked} />
                             </div>
                             <div className="col-xs-2">
                                 <i className={"star fa fa-star" + this.messageStarred()} onClick={this.toggleStarred}></i>

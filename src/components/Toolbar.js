@@ -21,8 +21,7 @@ class Toolbar extends Component {
         }
     }
 
-    unreadMessageOutput = () => this.props.unreadMessages === 1 ? "unread message" : "unread messages";
-    
+    unreadMessageOutput = () => this.props.unreadMessages === 1 ? "unread message" : "unread messages";  
 
     render() {
         return (
@@ -33,15 +32,22 @@ class Toolbar extends Component {
                         {this.unreadMessageOutput()}
                     </p>
 
+                    <a className="btn btn-danger" onClick={e => {
+                        e.preventDefault();
+                        this.props.toggleCompose();
+                    }}>
+                        <i className="fa fa-plus"></i>
+                    </a>
+
                     <button className="btn btn-default" onClick={this.messagesSelectedToolbar}>
                         <i className={this.messagesSelected()}></i>
                     </button>
 
-                    <button className="btn btn-default" onClick={this.props.setMessagesRead} disabled={this.props.messagesSelected === "none"}>
+                    <button className="btn btn-default" onClick={() => this.props.setMessagesReadStatus(true)} disabled={this.props.messagesSelected === "none"}>
                         Mark As Read
                     </button>
 
-                    <button className="btn btn-default" onClick={this.props.setMessagesUnread} disabled={this.props.messagesSelected === "none"}>
+                    <button className="btn btn-default" onClick={() => this.props.setMessagesReadStatus(false)} disabled={this.props.messagesSelected === "none"}>
                         Mark As Unread
                     </button>
 
@@ -63,6 +69,7 @@ class Toolbar extends Component {
                         <i className="fa fa-trash-o"></i>
                     </button>
                 </div>
+         
             </div>
         )
     }
